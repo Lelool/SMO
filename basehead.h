@@ -12,15 +12,15 @@
 #define FUNC  5
 #define STYLE 6
 typedef int State;
-typedef struct{
+typedef struct {
     int i; //行
     int j; //列
     int e; //数据
 }Triple;
 
-typedef struct{
-    Triple data[MAXSIZE+1];
-    int rpos; //各行第一个非零元的位置
+typedef struct {
+    Triple data[MAXSIZE + 1];
+    int rpos[MAXRC + 1]; //各行第一个非零元的位置
     int mu;   //行数
     int nu;   //列数
     int tu;   //非零元个数
@@ -29,3 +29,10 @@ typedef struct{
 State getstate(void);
 //用于打印输入信息，格式
 void printinfo(int state);
+void add(void);
+void sub(void);
+void mul(void);
+void getinput(TSMatrix *A, char name);
+void output(TSMatrix *A);
+TSMatrix *lalloc(void);
+
