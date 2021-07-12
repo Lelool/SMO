@@ -36,3 +36,10 @@ void getinput(TSMatrix *A, char name);
 void output(TSMatrix *A);
 TSMatrix *lalloc(void);
 
+//打印每行的第一个数据以便确定getrpos是否正确
+void printrpos(TSMatrix *A);
+
+void initialarray(int a[][MAXRC], int m, int n);
+
+void outputarray(int a[][MAXRC], int m, int n);
+
