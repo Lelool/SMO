@@ -190,7 +190,7 @@ void inv(void){
         printf("ERROR: Matrix A has no inverse matrix\n");
         return ;
     }
-    minor(a,b);//得到余子式
+    myminor(a,b);//得到余子式
     for(i=0;i<a.mu;i++){
         for(j=0;j<a.nu;j++){
             signal=((i+j)%2) ? -1 : 1;
@@ -360,7 +360,7 @@ int determinant(CrossList a, int n){
     return temp;
 }
 
-void minor(CrossList a, int b[][MAXRC]){
+void myminor(CrossList a, int b[][MAXRC]){
     initialarray(b,a.mu,a.nu);
     OLNode *p;
     OLNode *pc;
