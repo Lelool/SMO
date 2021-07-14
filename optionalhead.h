@@ -65,7 +65,7 @@ void outputlist(CrossList A);
 //求矩阵行列式,递归
 int determinant(CrossList a, int n);
 //求余子式，并存入数组
-void minor(CrossList a, int b[][MAXRC]);
+void myminor(CrossList a, int b[][MAXRC]);
 //将i,j,k结点插入链表中
 void insertnode(CrossList *a, int i, int j, int k);
 //打印输出提示
