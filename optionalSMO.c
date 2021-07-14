@@ -360,7 +360,7 @@ int determinant(CrossList a, int n){
     return temp;
 }
 
-int minor(CrossList a, int b[][MAXRC]){
+void minor(CrossList a, int b[][MAXRC]){
     initialarray(b,a.mu,a.nu);
     OLNode *p;
     OLNode *pc;
