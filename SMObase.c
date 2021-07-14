@@ -257,23 +257,6 @@ void mul(void){
     // printrpos(A);
     //处理A的每一行
     for(i = 0; i < A->mu; i++){
-        // // if(i < A->mu && A->rpos[i] )
-        // //     tp = A->rpos[i + 1];
-        // // else
-        // //     tp = A->tu + 1;
-        // if(A->rpos[i] == -1){
-        // //说明当前行为空行，不需处理
-        //     ;
-        // }else{
-        //     if(i == A->mu - 1)
-        //         tp = A->tu + 1;
-        //     else{
-        //         if(A->rpos[i+1] != -1){
-        //             tp = A->rpos[]
-        //         }
-        //     }
-        // }
-        //算tp完全没必要啊,nmd
         if(A->rpos[i] == -1){
             ;
         }else{
@@ -297,7 +280,7 @@ void mul(void){
 
 void getinput(TSMatrix *A, char name){
     int num;
-    int i, j, k;
+    int i, j, k, prei, prej, sequence;
     int index=0;
     int preline = -1;
     //注意，此处下标是从0开始的
@@ -305,16 +288,48 @@ void getinput(TSMatrix *A, char name){
     scanf("%d", &i);
     printf("Matrix %c   column:",name);
     scanf("%d", &j);
-    printf("Matrix %c    non-zero elements:",name);
+    printf("Matrix %c   non-zero elements:",name);
     scanf("%d", &k);
+    while(i==0 || j==0 || k==0){
+        printf("ERROR: Wrong input data\n");
+        printf("Hint: Please check the parameters\n");
+        printf("Matrix %c   row:",name);
+        scanf("%d", &i);
+        printf("Matrix %c   column:",name);
+        scanf("%d", &j);
+        printf("Matrix %c   non-zero elements:",name);
+        scanf("%d", &k);
+    }
     A->mu = i;
     A->nu = j;
     A->tu = k;
-    //printf("mu:%d nu:%d tu:%d", A->mu, A->nu, A->tu);
+    prei=-1;
+    prej=-1;
     printinfo(STYLE);
     for (num = 0; num < A->tu; num++) {
         scanf("%d %d %d", &i, &j, &k);
-        //printf("num is %d\n", num);
+        if(prei > i || (prei == i && prej > j) || (prei==i && prej==j)){
+            printf("\nERROR: Wrong input data\n");
+            printf("Hint:  Enter matrix in line main order without repeating elements\n");
+            printf("Hint: 1 Reinput the current element\n");
+            printf("      2 Reinput the current matrix\n");
+            printf("Please enter the sequence number:");
+            scanf("%d",&sequence);
+            if(sequence==1){
+                scanf("%d %d %d", &i, &j, &k);
+                while(prei > i || (prei == i && prej > j) || (prei==i && prej==j)){
+                printf("\nERROR: Wrong input data\n");
+                printf("Hint:  Enter matrix in line main order without repeating elements\n");
+                printf("       Reinput the current element\n");
+                scanf("%d %d %d", &i, &j, &k);
+                }   
+            }else if(sequence==2){
+                getinput(A,name);
+                break;
+            }
+        }
+        prei=i;
+        prej=j;
         A->data[num].i = i;
         A->data[num].j = j;
         A->data[num].e = k;
