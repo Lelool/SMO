@@ -280,7 +280,7 @@ void mul(void){
 
 void getinput(TSMatrix *A, char name){
     int num;
-    int i, j, k, prei, prej, sequence;
+    int i, j, k;
     int index=0;
     int preline = -1;
     //注意，此处下标是从0开始的
@@ -288,48 +288,16 @@ void getinput(TSMatrix *A, char name){
     scanf("%d", &i);
     printf("Matrix %c   column:",name);
     scanf("%d", &j);
-    printf("Matrix %c   non-zero elements:",name);
+    printf("Matrix %c    non-zero elements:",name);
     scanf("%d", &k);
-    while(i==0 || j==0 || k==0){
-        printf("ERROR: Wrong input data\n");
-        printf("Hint: Please check the parameters\n");
-        printf("Matrix %c   row:",name);
-        scanf("%d", &i);
-        printf("Matrix %c   column:",name);
-        scanf("%d", &j);
-        printf("Matrix %c   non-zero elements:",name);
-        scanf("%d", &k);
-    }
     A->mu = i;
     A->nu = j;
     A->tu = k;
-    prei=-1;
-    prej=-1;
+    //printf("mu:%d nu:%d tu:%d", A->mu, A->nu, A->tu);
     printinfo(STYLE);
     for (num = 0; num < A->tu; num++) {
         scanf("%d %d %d", &i, &j, &k);
-        if(prei > i || (prei == i && prej > j) || (prei==i && prej==j)){
-            printf("\nERROR: Wrong input data\n");
-            printf("Hint:  Enter matrix in line main order without repeating elements\n");
-            printf("Hint: 1 Reinput the current element\n");
-            printf("      2 Reinput the current matrix\n");
-            printf("Please enter the sequence number:");
-            scanf("%d",&sequence);
-            if(sequence==1){
-                scanf("%d %d %d", &i, &j, &k);
-                while(prei > i || (prei == i && prej > j) || (prei==i && prej==j)){
-                printf("\nERROR: Wrong input data\n");
-                printf("Hint:  Enter matrix in line main order without repeating elements\n");
-                printf("       Reinput the current element\n");
-                scanf("%d %d %d", &i, &j, &k);
-                }   
-            }else if(sequence==2){
-                getinput(A,name);
-                break;
-            }
-        }
-        prei=i;
-        prej=j;
+        //printf("num is %d\n", num);
         A->data[num].i = i;
         A->data[num].j = j;
         A->data[num].e = k;
