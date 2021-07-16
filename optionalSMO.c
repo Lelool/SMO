@@ -190,7 +190,7 @@ void inv(void){
         printf("ERROR: Matrix A has no inverse matrix\n");
         return ;
     }
-    myminor(a,b);//得到余子式
+    minor(a,b);//得到余子式
     for(i=0;i<a.mu;i++){
         for(j=0;j<a.nu;j++){
             signal=((i+j)%2) ? -1 : 1;
@@ -231,55 +231,18 @@ void outputarray(int a[][MAXRC], int m, int n){
 
 void getinv(CrossList *A, char name){
     //!TODO
-    int n,i,j,k,prei,prej,sequence;
+    int n,i,j,k;
     OLNode *pwork;
     OLNode *ppoint;
     printf("Matrix %c   row:",name);
-    scanf("%d", &i);
+    scanf("%d", &A->mu);
     printf("Matrix %c   column:",name);
-    scanf("%d", &j);
-    printf("Matrix %c   non-zero elements:",name);
-    scanf("%d", &k);
-    while(i==0 || j==0 || k==0){
-        printf("ERROR: Wrong input data\n");
-        printf("Hint: Please check the parameters\n");
-        printf("Matrix %c   row:",name);
-        scanf("%d", &i);
-        printf("Matrix %c   column:",name);
-        scanf("%d", &j);
-        printf("Matrix %c   non-zero elements:",name);
-        scanf("%d", &k);
-    }
-    A->mu = i;
-    A->nu = j;
-    A->tu = k;
-    prei = -1;
-    prej = -1;
+    scanf("%d", &A->nu);
+    printf("Matrix %c    non-zero elements:",name);
+    scanf("%d", &A->tu);
     initialhead(A);//对A初始化
     for(n = 0; n < A->tu; n++){
         scanf("%d %d %d", &i, &j, &k);
-        if(prei > i || (prei == i && prej > j) || (prei==i && prej==j)){
-            printf("\nERROR: Wrong input data\n");
-            printf("Hint:  Enter matrix in line main order without repeating elements\n");
-            printf("Hint: 1 Reinput the current element\n");
-            printf("      2 Reinput the current matrix\n");
-            printf("Please enter the sequence number:");
-            scanf("%d",&sequence);
-            if(sequence==1){
-                scanf("%d %d %d", &i, &j, &k);
-                while(prei > i || (prei == i && prej > j) || (prei==i && prej==j)){
-                printf("\nERROR: Wrong input data\n");
-                printf("Hint:  Enter matrix in line main order without repeating elements\n");
-                printf("       Reinput the current element\n");
-                scanf("%d %d %d", &i, &j, &k);
-                }   
-            }else if(sequence==2){
-                getinv(A,name);
-                break;
-            }
-        }
-        prei=i;
-        prej=j;
         insertnode(A,i,j,k);
     }
 }
@@ -397,7 +360,7 @@ int determinant(CrossList a, int n){
     return temp;
 }
 
-void myminor(CrossList a, int b[][MAXRC]){
+int minor(CrossList a, int b[][MAXRC]){
     initialarray(b,a.mu,a.nu);
     OLNode *p;
     OLNode *pc;
@@ -435,7 +398,6 @@ void myminor(CrossList a, int b[][MAXRC]){
             b[z][j]=determinant(c,n-1);
         }
     }
-    return ;
 }
 
 void insertnode(CrossList *a, int i, int j, int k){
